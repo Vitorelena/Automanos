@@ -11,16 +11,16 @@ void clearScreen() {
    #endif
    }
 
-void Escrever(const std::string texto) {
+void Escrever(const std::string texto, int vt) {
     
     for (char c : texto) {
         std::cout << c << std::flush;
-        std::this_thread::sleep_for(std::chrono::milliseconds(100));
+        std::this_thread::sleep_for(std::chrono::milliseconds(100/vt));
     }
 
 }
 
-void Menu() {
+void Menu(int vt) {
     std::cout << "\033[1;34m" // Cor azul para título
               << "===============================================================\n"
               << "                      \033[1;32mRPG dos Automanos\033[1;34m\n"
@@ -32,7 +32,7 @@ void Menu() {
               << "  \033[1;33m[3] \033[0mSair\n\n";
     std::cout << "\033[1;34m" // Cor azul para rodapé
               << "===============================================================\n";
-               Escrever("\033[0mEscolha uma opção: ");
+               Escrever("\033[0mEscolha uma opção: ", vt);
 }
 
 void personagem(int &vida, int &atf, int &atm, int &resf, int &resm, int a){
@@ -83,21 +83,23 @@ void personagem(int &vida, int &atf, int &atm, int &resf, int &resm, int a){
 int main(){
   std::string name;
   int seletor = 0;
+  int dif = 1; // Dificuldade do jogo
+  int config = 0, vt = 1; // Vt é a velocidade do texto
   int raça;
   int vida = 0, atf = 0, atm = 0, resf = 0 , resm =0;
   do{
-    Menu();
+    Menu(vt);
     std::cin >> seletor;
     
     if(seletor == 1){
       clearScreen();
-      Escrever("\nBom, para começar...");
+      Escrever("\nBom, para começar...",vt);
       
-      Escrever("\nDigite seu nome: ");
+      Escrever("\nDigite seu nome: ",vt);
       std::cin >> name;
       clearScreen();
-      Escrever("\nSeja bem-vindo, "); Escrever(name); Escrever("!");
-      Escrever("\nO que você é?\n");
+      Escrever("\nSeja bem-vindo, ",vt); Escrever(name,vt); Escrever("!",vt);
+      Escrever("\nO que você é?\n",vt);
         std::cout << " 1-\33[1;34m" << "Humano\n";
         std::cout << "\33[0m 2-"<< "\33[1;31m" << "Vampiro\n";
         std::cout << "\33[0m 3-"<< "\33[1;32m" << "Elfo\n";
@@ -106,7 +108,40 @@ int main(){
         std::cin >> raça;
 
     } else if(seletor == 2){
-        seletor = 0;
+        do{
+          clearScreen();
+        std::cout << "\033[1;34m" << "===============================================================\n"
+        << "\033[m1- Dificuldade\n2- Velocidade do texto\n3- Voltar ao menu\n"
+        << "\033[1;34m" << "===============================================================\n" << "\033[0m";
+        std::cin >> config;
+        if(config == 1){
+          clearScreen();
+          std::cout << "\033[1;34m" << "===============================================================\n\033[0m";
+          Escrever("Escolha a dificuldade do jogo:\n",vt);
+          std::cout << "1- Fácil\n2- \033[1;33mMédio\n\033[0m3-\033[31m Difícil\n\033[0m4- \033[1;31mMUITO DIFICIL\033[0m\n";
+          std::cout << "\033[1;34m" << "===============================================================\n\033[0m";
+          std::cin >> dif;
+          if(dif > 4)
+            dif = 4;
+          if(dif < 1)
+            dif = 1;
+          config = 0;
+        } else if(config == 2){
+            clearScreen();
+            std::cout << "\033[1;34m" << "===============================================================\n\033[0m";
+            Escrever("Escolha a velocidade do texto:\n1- Normal\n2- Rápido\n3- Muito Rápido\n", vt);
+            std::cout << "\033[1;34m" << "===============================================================\n\033[0m";
+            std::cin >> vt;
+            if(vt >= 3)
+              vt = 4;
+            if(vt < 1)
+              vt = 1;
+            config = 0;
+        } else
+          config = 3;
+          seletor = 0;
+
+        } while (config == 0);
     } else if(seletor == 3){
 
     } else{
