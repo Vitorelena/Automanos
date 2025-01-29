@@ -29,7 +29,8 @@ void Menu(int vt) {
     std::cout << "\n\033[1;33m" // Cor amarela para opções
               <<           "  [1] \033[0mJogar\n"
               << "  \033[1;33m[2] \033[0mConfigurações\n"
-              << "  \033[1;33m[3] \033[0mSair\n\n";
+              << "  \033[1;33m[3] \033[0mAbrir Mapa\n"
+              << "  \033[1;33m[4] \033[0mSair\n\n";
     std::cout << "\033[1;34m" // Cor azul para rodapé
               << "===============================================================\n";
                Escrever("\033[0mEscolha uma opção: ",vt);
