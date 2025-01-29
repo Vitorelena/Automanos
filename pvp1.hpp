@@ -42,7 +42,7 @@ int dano(int atq, int res, float crit){ // Calcula o dano causado, com a diminui
     }   
 }
 
-int batalha (int vida_m, int atf_m, int atm_m, int resf_m, int resm_m, float crit_m, float vamp_m, std::string nome){
+int batalha (int vida_m, int atf_m, int atm_m, int resf_m, int resm_m, float crit_m, float vamp_m, std::string nome, int vt){
 //a variável "vida_max" tem que ser criada no arquivo pricipal logo quando o personagem é escolhido
 //para registrar a vida máxima do personagem
 int vida_max_m;
@@ -51,9 +51,9 @@ int l;
 int j;
 int y;
 
-Escrever ("Prepare-se para lutar contra o "); Escrever (nome); Escrever (".");
+Escrever ("Prepare-se para lutar contra o ", vt); Escrever (nome,vt); Escrever (".",vt);
 while (j != 1){
-Escrever(".\n O que você deseja fazer?");
+Escrever(".\n O que você deseja fazer?",vt);
 std::cout << endl << " 1-\33[1;34m" << "Usar o ataque mágico\n";
 std::cout << "\33[0m 2-"<< "\33[1;31m" << "Usar o ataque físico\n";
 std::cout << "\33[0m 3-"<< "\33[1;32m" << "Fugir como um covarde\n \33[0m";
@@ -80,14 +80,14 @@ if (y == 1){
 
     if(vida_m <= 0){
         vida_m = 0;
-        Escrever ("O "); Escrever (nome); Escrever ("morreu.");
+        Escrever ("O ",vt); Escrever (nome,vt); Escrever ("morreu.",vt);
         std::this_thread::sleep_for(std::chrono::seconds(2)); 
         clearScreen ();
-        Escrever ("Você atacou e causou ");
+        Escrever ("Você atacou e causou ",vt);
         std :: cout << l;
-        Escrever (" de dano.\nAgora você tem ");
+        Escrever (" de dano.\nAgora você tem ",vt);
         std :: cout << p1.R_vida;
-        Escrever (" de vida e o "); Escrever (nome); Escrever(" tem ");
+        Escrever (" de vida e o ",vt); Escrever (nome,vt); Escrever(" tem ",vt);
         std :: cout << vida_m << ".\n";
         std::this_thread::sleep_for(std::chrono::seconds(3)); 
         clearScreen();
@@ -95,11 +95,11 @@ if (y == 1){
         return j;
     }
 
-    Escrever ("Você atacou e causou ");
+    Escrever ("Você atacou e causou ",vt);
     std :: cout << l;
-    Escrever (" de dano.\nAgora você tem ");
+    Escrever (" de dano.\nAgora você tem ",vt);
     std :: cout << p1.R_vida;
-    Escrever (" de vida e o "); Escrever (nome); Escrever(" tem ");
+    Escrever (" de vida e o "); Escrever (nome); Escrever(" tem ",vt);
     std :: cout << vida_m << ".\n";
     std::this_thread::sleep_for(std::chrono::seconds(3)); 
     clearScreen();
@@ -118,18 +118,18 @@ if (y == 1){
     }
     p1.R_vida -= x;
     if (p1.R_vida <= 0){
-    Escrever ("Você morreu.");
+    Escrever ("Você morreu.",vt);
     std::this_thread::sleep_for(std::chrono::seconds(2)); 
     exit (0);
 
     }
 
-    Escrever ("O "); Escrever (nome); Escrever (" te atacou e causou ");
+    Escrever ("O ",vt); Escrever (nome,vt); Escrever (" te atacou e causou ",vt);
     std :: cout << x; 
-    Escrever (" de dano");
-    Escrever ("\nAgora você tem "); 
+    Escrever (" de dano",vt);
+    Escrever ("\nAgora você tem ",vt); 
     std :: cout << p1.R_vida;
-     Escrever (" de vida e o "); Escrever (nome); Escrever (" tem ");
+     Escrever (" de vida e o ",vt); Escrever (nome,vt); Escrever (" tem ",vt);
      std :: cout << vida_m << ".\n";
       std::this_thread::sleep_for(std::chrono::seconds(3)); 
     clearScreen();
