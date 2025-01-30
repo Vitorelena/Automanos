@@ -2,8 +2,114 @@
 #include <chrono>
 #include <thread>
 #include "classes.hpp"
-#include "pvp1.hpp"
-#include "funcoes.hpp"
+#include "funcoes1.hpp"
+
+      Humano H1; Vampiro V1; Elfo E1; Orc O1; Anao A1; //Instanciados objetos-base de raça  
+      Cavaleiro Cv1; Arqueiro Ar1; Mago Mg1; //Instanciados objetos-base de classe
+      Espada Esp1; Arco arc1; Escudo esc1; //Instanciados objetos-base de arma
+      Player p1; //Instanciado objeto do jogador
+
+int batalha (int vida_max, int vida_m, int atf_m, int atm_m, int resf_m, int resm_m, float crit_m, float vamp_m, float vamp,std::string nome, int vt){
+    //a variável "vida_max" tem que ser criada no arquivo pricipal logo quando o personagem é escolhido
+    //para registrar a vida máxima do personagem
+    int vida_max_m;
+    vida_max_m = vida_m;
+    int l;
+    int j;
+    int y;
+
+    Escrever ("Prepare-se para lutar contra o ", vt); Escrever (nome,vt); Escrever (".",vt);
+    while (j != 1){
+    std::cout<<"\nSua vida: "<<p1.R_vida<<"/"<<vida_max<<std::endl;
+    std::cout<<"Vida do "<<nome<<": "<<vida_m<<"/"<<vida_max_m<<std::endl;
+    Escrever("\n O que você deseja fazer?",vt);
+    std::cout << endl << " 1-\33[1;34m" << "Usar o ataque mágico\n";
+    std::cout << "\33[0m 2-"<< "\33[1;31m" << "Usar o ataque físico\n";
+    std::cout << "\33[0m 3-"<< "\33[1;32m" << "Fugir como um covarde\n \33[0m";
+    std :: cin >> y;
+
+    if (y == 1){
+         l = dano (p1.R_atk_m, resm_m, p1.R_crtRate); //ataque o personagem
+        p1.R_vida += vamp*l;
+        if (p1.R_vida > vida_max){
+            p1.R_vida = vida_max;
+        }
+
+    } else if (y == 2){
+        l = dano (p1.R_atk_f, resf_m, p1.R_crtRate); //ataque o personagem
+            p1.R_vida += vamp*l;
+            if (p1.R_vida > vida_max){
+                p1.R_vida = vida_max;
+         }
+
+    } else if( y == 3){
+    exit (0);
+}
+         vida_m = vida_m - l;
+
+        if(vida_m <= 0){
+            vida_m = 0;
+            Escrever ("Você atacou e causou ",vt);
+            std :: cout << l;
+            Escrever (" de dano.\nAgora você tem ",vt);
+            std :: cout << p1.R_vida;
+            Escrever (" de vida e o ",vt); Escrever (nome,vt); Escrever (" morreu.",vt);
+
+            std::cout<<"\nPressione ENTER para continuar."<<std::endl;
+            std::cin.ignore(); std::cin.get();
+            clearScreen ();
+            j = 1;
+            return j;
+    }
+
+        Escrever ("Você atacou e causou ",vt);
+        std :: cout << l;
+        Escrever (" de dano.\nAgora você tem ",vt);
+        std :: cout << p1.R_vida;
+        Escrever (" de vida e o ",vt); Escrever (nome,vt); Escrever(" tem ",vt);
+        std :: cout << vida_m << ".\n";
+
+        
+
+    
+        int x;
+        int v = randomizer(2)+1; //ataque do monstro, essa linha calcula para o montro atacar com ataque físico ou mágico
+        if (v == 1){
+             x = dano (atf_m, p1.R_def_f, crit_m);
+        } else if (v == 2){
+            x = dano (atm_m, p1.R_def_m, crit_m);
+        }
+        vida_m = vida_m + x*vamp_m;
+        if (vida_m > vida_max_m){
+            vida_m = vida_max_m;
+        }
+        p1.R_vida -= x;
+        
+
+        Escrever ("\nO ",vt); Escrever (nome,vt); Escrever (" te atacou e causou ",vt);
+        std :: cout << x; 
+        Escrever (" de dano!!!!",vt);
+        if (p1.R_vida <= 0){
+        
+        std::cout<<"\nPressione ENTER para continuar."<<std::endl;
+        std::cin.ignore(); std::cin.get();
+        clearScreen();
+        Escrever ("\nVocê morreu.",vt);
+        std::this_thread::sleep_for(std::chrono::seconds(2)); 
+        exit (1);
+
+        }
+        Escrever ("\nAgora você tem ",vt); 
+        std :: cout << p1.R_vida;
+         Escrever (" de vida e o ",vt); Escrever (nome,vt); Escrever (" tem ",vt);
+         std :: cout << vida_m << ".\n";
+
+        std::cout<<"\nPressione ENTER para continuar."<<std::endl;
+        std::cin.ignore(); std::cin.get();
+        clearScreen();
+    }
+    return j;
+}
 
 
 int main(){
@@ -13,6 +119,7 @@ int main(){
   int config = 0, vt = 1; // Vt é a velocidade do texto
   float vamp = 0;
   int localizacao = 1;
+  int vidaMax;
 
   do{
     clearScreen();
@@ -38,11 +145,6 @@ int main(){
         std::cout << "\033[0m 4-"<< "\033[1;33m" << "Orc\n";
         std::cout << "\033[0m 5-"<< "\033[1;36m" << "Anão\n \033[0m";
           
-
-      Humano H1; Vampiro V1; Elfo E1; Orc O1; Anao A1; //Instanciados objetos-base de raça  
-      Cavaleiro Cv1; Arqueiro Ar1; Mago Mg1;           //Instanciados objetos-base de classe
-      Espada Esp1; Arco arc1; Escudo esc1;             //Instanciados objetos-base de arma
-      Player p1; //Instanciado objeto do jogador
 
         while(1){
           std::cin >> raça;
@@ -138,16 +240,27 @@ int main(){
             continue;
           }
         }
-
+      clearScreen();
       Escrever("Muito bem, ", vt); Escrever(name, vt); 
       Escrever(", a seguir, os seus atributos iniciais:\n", vt); 
       Escrever("(Lembre-se deles, pois serão muitos importantes durante a sua jornada!)\n\n", vt); 
-           std::cout<<"Ataque Físico: "<<p1.R_atk_f<<std::endl
-                   <<"Ataque Mágico: "<<p1.R_atk_m<<std::endl
-                   <<"Defesa Física: "<<p1.R_def_f<<std::endl
-                   <<"Defesa Mágica: "<<p1.R_def_m<<std::endl
-                   <<"Pontos de Vida: "<<p1.R_vida<<std::endl
-                   <<"Chance de Crítico: "<<p1.R_crtRate<<std::endl;
+      if(raça == 1)
+        homem(name, p1.R_vida, p1.R_atk_f, p1.R_atk_m, p1.R_def_f, p1.R_def_m, p1.R_crtRate);
+      else if(raça == 2) 
+        vampiro(name, p1.R_vida, p1.R_atk_f, p1.R_atk_m, p1.R_def_f, p1.R_def_m, p1.R_crtRate);
+      else if(raça == 3)
+        elfo(name, p1.R_vida, p1.R_atk_f, p1.R_atk_m, p1.R_def_f, p1.R_def_m, p1.R_crtRate);
+      else if(raça == 4)
+        orc(name, p1.R_vida, p1.R_atk_f, p1.R_atk_m, p1.R_def_f, p1.R_def_m, p1.R_crtRate);
+      else if(raça == 5) 
+         anao(name, p1.R_vida, p1.R_atk_f, p1.R_atk_m, p1.R_def_f, p1.R_def_m, p1.R_crtRate);
+      else 
+        homem(name, p1.R_vida, p1.R_atk_f, p1.R_atk_m, p1.R_def_f, p1.R_def_m, p1.R_crtRate);
+
+      vidaMax = p1.R_vida;
+
+      std::cout<<"\nPressione ENTER para continuar."<<std::endl;
+      std::cin.ignore(); std::cin.get();
 
       ////////////////////////////////////////////////
 
@@ -187,9 +300,11 @@ int main(){
       } while (config == 0);
         
     } else if(seletor == 3){
+      clearScreen();
       mapa(localizacao);
+      std::cout<<"\n Você está na marca X vermelha!!"<< std::endl;
       seletor = 0;
-      std::cout<<"\nPressione qualquer tecla para voltar ao menu"<<std::endl;
+      std::cout<<"\nPressione ENTER para voltar ao menu"<<std::endl;
       std::cin.ignore(); std::cin.get();
     } else if(seletor == 4){
       if(vt > 1 || dif > 1){
@@ -201,7 +316,7 @@ int main(){
     }
   }while(seletor == 0);
     
-  std::cout<<"FELIZ\n";
+    batalha(vidaMax, 100, 50, 50, 10, 10, 0.25, 0.3,vamp,"Vampiro", vt);
 
 
     return 0;
