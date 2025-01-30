@@ -1,6 +1,11 @@
+#include "classes.hpp"
+#include <thread> 
+#include <chrono> 
+#include <string>
 #include <iostream>
-#include <chrono>
-#include <thread>
+#include <cstdlib>
+#include <ctime>
+#include <csignal>
 
 
 void clearScreen() {
@@ -357,4 +362,132 @@ if(a == 1){
              << "\033[44;34m%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\033[0m\n";
 }
              
+}
+
+int randomizer(int limite){ // Serve para gera um numero aleatório
+    std::srand(std::time(nullptr));
+    return rand() % limite;
+}
+
+int dano(int atq, int res, float crit){ // Calcula o dano causado, com a diminuição dele a partir da resistencia do inimigo e o aumento conforme a chance de critico
+    float floatatq = (float)atq;
+    float floatres = (float)res;
+    int dano1;
+    float floatdano = floatatq - (floatres/2);
+    if(floatdano <= 0)
+        floatdano = 1;
+    float a = crit * 100;
+    int b = randomizer(100);
+    float floatb = (float)b;
+    if(a >= floatb){
+            floatdano = floatdano * 1.5;
+            int dano = (int)floatdano;
+            dano1 = dano;
+            Escrever ("Ataque crítico!!\n",4);
+            std::this_thread::sleep_for(std::chrono::seconds(1));
+            
+        return dano1;
+    } else{
+        int dano = (int)floatdano;
+        dano1 = dano;
+        return dano1;
+    }   
+}
+
+void dragao(){
+
+    std::cout <<"\033[1;37;40m                 ___====-_  _-====___                    \n"
+              <<"           _--^^^#####//      \\\\#####^^^--_              \n"
+              <<"        _-^##########// (    ) \\\\##########^-_           \n"
+              <<"       -############//  |\\^^/|  \\############-           \n"
+              <<"     _/############//   (\033[36m@\033[37m::\033[36m@\033[37m)   \\\\############\\_        \n"
+              <<"    /#############((     \\\\//     ))#############\\       \n"
+              <<"   -###############\\\\    (oo)    //###############-      \n"
+              <<"  -#################\\\\  / VV \\  //#################-     \n"
+              <<" -###################\\\\/      \\//###################-    \n"
+              <<"_#/|##########/\\######(   /\\   )######/\\##########|\\#_   \n"
+              <<"|/ |#/\\#/\\#/\\/  \\#/\\##\\  |  |  /##/\\#/  \\/\\#/\\#/\\#| \\|   \n"
+              <<"`  |/  V  V  `   V  \\#\\| |  | |/#/  V   '  V  V  \\|  '   \n"
+              <<"   `   `  `      `   / | |  | | \\   '      '  '   '      \n"
+              <<"                    (  | |  | |  )                       \n"
+              <<"                   __\\ | |  | | /__                      \n"
+              <<"                  (vvv(VVV)(VVV)vvv)                     \n\033[0m";
+}
+
+void homem(std::string name, int vida, int atf, int atm, int rsf, int rsm, float crit){
+    std::cout << "         ////^\\\\\\\\ \t\tNome: "<< name <<std::endl;
+    std::cout << "          |^   ^|  \t\tVida: "<< vida <<std::endl;
+    std::cout << "         @(O   O)@\t\tAtaque físico: "<< atf<<std::endl;
+    std::cout << "          |  <  |\t\tAtaque mágico: "<< atm<< std::endl;
+    std::cout << "          |  _  |\t\tResistência física: "<< rsf<<std::endl;
+    std::cout << "           \\___/  \t\tRestência mágica: "<< rsm<<std::endl;
+    std::cout << "         ___| |___\t\tChance de crítico: "<<crit*100<<'%'<<std::endl;
+    std::cout << "        /   \\_/   \\\n";
+    std::cout << "       /           \\\n";
+    std::cout << "      /\\_/|     |\\_/\\\n";
+    std::cout << "     / /  |     |  \\ \\\n";
+    std::cout << "    ( <   |     |   > )\n";
+    std::cout << "     \\ \\  |     |  / /\n";
+}
+
+void vampiro(std::string name, int vida, int atf, int atm, int rsf, int rsm, float crit){
+    std::cout << "         ._\"\"\"\". \t\tNome: "<< name <<std::endl;
+    std::cout <<"        /       \\\t\tVida: "<< vida <<std::endl;
+    std::cout <<"       /         \\\t\tAtaque físico: "<< atf<<std::endl;
+    std::cout <<"     _/   .-.    .\\\t\tAtaque mágico: "<< atm<< std::endl;
+    std::cout <<"    / \\  /   \\  /  \\\t\tResistência física: "<< rsf<<std::endl;
+    std::cout <<"    | _\\/     .==.==.\t\tRestência mágica: "<< rsm<<std::endl;
+    std::cout <<"    | ( \\    /____\\__\\\t\tChance de crítico: "<< crit*100<<'%' <<std::endl;
+    std::cout <<"     \\ \\     (_())(_()\n";
+    std::cout <<"      \\ \\            \'---._\n";
+    std::cout <<"       \\                   \\_\n";
+    std::cout <<"    /\\ |         (__)_______/\n";
+    std::cout <<"   /  \\|       /\\___/\n";
+    std::cout <<"  |    \\       \\||VV\n";
+    std::cout <<"  |     \\       \\|\"\"\"\",\n";
+    std::cout <<"  |      \\      _______)\n";
+    std::cout <<"   \\      \\   /\'\n";
+    std::cout <<"    \\      \\(\n";
+}
+
+void orc(std::string name, int vida, int atf, int atm, int rsf, int rsm, float crit){
+    std::cout << "     (\\-\"\'\'\'\"-/)\t\tNome: "<< name <<std::endl;
+    std::cout << "     //^\\   /^\\\\\t\tVida: "<< vida <<std::endl;
+    std::cout << "    ;/ ~_\\ /_~ \\;\t\tAtaque físico: "<< atf<<std::endl;
+    std::cout << "    |  / \\Y/ \\  |\t\tAtaque mágico: "<< atm<< std::endl;
+    std::cout << "   (,  \\0/ \\0/  ,)\t\tResistência física: "<< rsf<<std::endl;
+    std::cout << "    |   /   \\   |\t\tRestência mágica: "<< rsm<<std::endl;
+    std::cout << "    | (_\\._./_) |\t\tChance de crítico: "<< crit*100<<'%'<<std::endl;
+    std::cout << "     \\ \\v-.-v/ /\n";
+    std::cout << "      \\ \'===\' /\n";
+    std::cout << "       \\\'   \'/\n";
+    std::cout << "         ---\n";
+}
+
+void elfo(std::string name, int vida, int atf, int atm, int rsf, int rsm, float crit){
+    std::cout << "               . -----.\t\tNome: "<< name <<std::endl;
+    std::cout << "  \\  \'  /    _/     )/\t\tVida: "<< vida <<std::endl;
+    std::cout << " - (   ) -  (\'---\'\'--) \t\tAtaque físico: "<< atf<<std::endl;
+    std::cout << "  /  \' \\   ((()\\^_^/)()\t\tAtaque mágico: "<< atm<< std::endl;
+    std::cout << "    \\\\_ \\   (()_)-((()()\tResistência física: "<< rsf<<std::endl;
+    std::cout << "     \' - \\   )/\\._./(()\t\tRestência mágica: "<< rsm<<std::endl;
+    std::cout << "     \'   /\\  /| X   | \\\t\tChance de crítico: "<< crit*100<<'%'<<std::endl;
+    std::cout << "          (___)|___/)\\ \n";
+    std::cout << "               |.#_|(_)\n";
+    std::cout << "              /\\    \\((_\n";
+    std::cout << "              \\/\\/\\/\\) \\\\\n";
+    std::cout << "              |  / \\  |\n";
+    std::cout << "              |  | |  |\n";
+}
+
+void anao(std::string name, int vida, int atf, int atm, int rsf, int rsm, float crit){
+    std::cout <<"          &&&\t\t\tNome: "<< name <<std::endl;
+    std::cout <<"         (+.+)\t\t\tVida: "<< vida <<std::endl;
+    std::cout <<"      ____\\=/____\t\tAtaque físico: "<< atf<<std::endl;
+    std::cout <<"     | |  ~~~  | |\t\tAtaque mágico: "<< atm<< std::endl;
+    std::cout <<"     \\ |_ ~~~ _| /\t\tResistência física: "<< rsf<<std::endl;
+    std::cout <<"      \\ \\|   |/ /\t\tRestência mágica: "<< rsm<<std::endl;
+    std::cout <<"        \\|___|/\t\t\tChance de crítico: "<< crit*100<<'%'<<std::endl;
+    std::cout <<"        / / \\ \\\n";
+    std::cout <<"       (__) (__)\n";
 }
