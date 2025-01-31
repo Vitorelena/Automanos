@@ -4,9 +4,11 @@
 #include "classes.hpp"
 #include "funcoes1.hpp"
 
+      std::string enter;
+
       Humano H1; Vampiro V1; Elfo E1; Orc O1; Anao A1; //Instanciados objetos-base de raça  
       Cavaleiro Cv1; Arqueiro Ar1; Mago Mg1; //Instanciados objetos-base de classe
-      Espada Esp1; Arco arc1; Escudo esc1; //Instanciados objetos-base de arma
+      Espada Esp1; Arco Arc1; Escudo Esc1; //Instanciados objetos-base de arma
       Player p1; //Instanciado objeto do jogador
 
 int batalha (int vida_max, float vamp, int vida_m, int atf_m, int atm_m, int resf_m, int resm_m, float crit_m, float vamp_m, std::string nome, int vt){
@@ -56,8 +58,10 @@ int batalha (int vida_max, float vamp, int vida_m, int atf_m, int atm_m, int res
             Escrever (" de vida e o ",vt); Escrever (nome,vt); Escrever (" morreu.",vt);
 
             std::cout<<"\nPressione ENTER para continuar."<<std::endl;
-            std::cin.ignore(); std::cin.get();
-            clearScreen ();
+              std::cin.clear(); 
+              std::cin.ignore(100, '\n'); 
+              std::cin.get();
+              clearScreen();
             j = 1;
             return j;
     }
@@ -120,7 +124,7 @@ int main(){
   float vamp = 0;
   int localizacao = 1;
   int vidaMax;
-
+  int raça, classe;
   do{
     clearScreen();
     Menu(vt);
@@ -138,7 +142,7 @@ int main(){
       Escrever("\nO que você é?\n", vt);
 
       //////// --- CRIAÇÃO DO PERSONAGEM --- ////////
-      int raça, classe;
+      
         std::cout << " 1-\033[1;34m" << "Humano\n";
         std::cout << "\033[0m 2-"<< "\033[1;31m" << "Vampiro\n";
         std::cout << "\033[0m 3-"<< "\033[1;32m" << "Elfo\n";
@@ -243,7 +247,7 @@ int main(){
       clearScreen();
       Escrever("Muito bem, ", vt); Escrever(name, vt); 
       Escrever(", a seguir, os seus atributos iniciais:\n", vt); 
-      Escrever("(Lembre-se deles, pois serão muitos importantes durante a sua jornada!)\n\n", vt); 
+      Escrever("(Lembre-se deles, pois serão muito importantes durante a sua jornada!)\n\n", vt); 
       if(raça == 1)
         homem(name, p1.R_vida, p1.R_atk_f, p1.R_atk_m, p1.R_def_f, p1.R_def_m, p1.R_crtRate);
       else if(raça == 2) 
@@ -259,8 +263,10 @@ int main(){
 
       vidaMax = p1.R_vida;
 
-      std::cout<<"\nPressione ENTER para continuar."<<std::endl;
-      std::cin.ignore(); std::cin.get();
+        std::cin.ignore();
+        std::cout << "Pressione Enter para continuar..."<<std::endl;
+        std::getline(std::cin, enter);
+        clearScreen();
 
       ////////////////////////////////////////////////
 
@@ -318,17 +324,17 @@ int main(){
     
     //batalha(vidaMax, 100, 50, 50, 10, 10, 0.25, 0.3,vamp,"Vampiro", vt);
  //_______________________________________________________________//
-
+ //PRÓLOGO--------------------------------------------------------//
   clearScreen();
   Escrever ("Você estava treinando nas florestas ao redor do Vilarejo, quando ouviu um grito feminino...", vt);
   Escrever ("\nParece ser da princesa, ela deve estar correndo perigo.", vt);
   Escrever ("\nVocê corre como uma flecha, mas já é tarde, os gritos da princesa foram emudecidos ", vt);
   Escrever ("pelo bater de asas de um grande monstro que a levara para longe.", vt);
-  Escrever ("\n\nDesesperado, você corre para sua casa para contar o que viu para sua mãe. ", vt);
+  Escrever ("\n\nDesesperado, você corre para sua casa a fim de contar a sua mãe o que aconteceu. ", vt);
   Escrever ("Você chega em casa e está ofengante.", vt);
-  Escrever ("\nInsira qualquer TECLA para continuar\n", vt);
-  std::cin.ignore(); std :: cin.get();
-  clearScreen();
+    std::cout << "\nPressione Enter para continuar..."<<std::endl;
+    std::getline(std::cin, enter);
+    clearScreen();
   Escrever (".   ", 1);
   delay (1000);
   Escrever (".   ", 1);
@@ -346,26 +352,26 @@ int main(){
   clearScreen();
 
   Escrever ("\033[35;1mMãe: \033[0mOi, filho, o que aconteceu?\n", vt);
+  Escrever(name, vt);
   delay (1000);
-  Escrever (".   ", 1);
+  Escrever (":  .   ", 1);
   delay (1000);
   Escrever (".   ", 1);
   delay (1000);
   Escrever (".   ", 1);
   Escrever ("\033[35;1m\nMãe: \033[0mMas você não viu o que a levou?\n", vt); Escrever (name, vt);
-  Escrever (": Não.\n\033[35;1mMãe: \033[0mVocê quem a viu ser capturada, é uma missão sua reencontrá-la...\n", vt);
+  Escrever (": Não.\n\033[35;1mMãe: \033[0mFoi você quem a viu ser capturada, é uma missão sua reencontrá-la...\n", vt);
   Escrever (name, vt);  Escrever (": MAS EU?!\n", vt); Escrever("\033[35;1mMãe: \033[0m Sim, você...\n", vt);
-  delay (1000);
-  Escrever ("\nInsira qualquer TECLA para continuar\n", vt);
-  std :: cin.ignore(); std :: cin.get();
-  clearScreen();
+    std::cout << "\nPressione Enter para continuar..."<<std::endl;
+    std::getline(std::cin, enter);
+    clearScreen();
   Escrever ("\033[35;1mMãe: \033[0mVocê viu para onde ela foi levada?\n", vt);
   Escrever (name, vt); Escrever (": Não.\n", vt);
   Escrever ("\033[35;1mMãe: \033[0mSem problemas. Vá a Hoenn Land, lá você encontrará o sábio Melchior. Ele te ajudará em sua jornada.\n", vt);
   Escrever ("Mas antes de ir, tome isto. É um mapa do reino feito pelo seu tataravô.\n", vt);
-  Escrever ("Insira qualquer TECLA para continuar\n", vt);
-  std::cin.ignore(); std::cin.get();
-  clearScreen();
+    std::cout << "\nPressione Enter para continuar..."<<std::endl;
+    std::getline(std::cin, enter);
+    clearScreen();
   std::cout << "\033[31;1mVocê recebeu o mapa!\033[0m\n";
   delay(500);
   clearScreen();
@@ -378,20 +384,21 @@ int main(){
   std :: cout << "\033[34;1mVocê recebeu o mapa!\033[0m\n";
   delay (500);
 
-  Escrever ("\nInsira qualquer TECLA para continuar\n", vt);
-  std::cin.ignore(); std::cin.get();
-  clearScreen();
+    std::cout << "\nPressione Enter para continuar..."<<std::endl;
+    std::getline(std::cin, enter);
+    clearScreen();
 
   mapa(localizacao);
   std::cout<<"\n Você está na marca \033[31;1mX\033[0m vermelha!!"<< std::endl;
-  Escrever ("\nInsira qualquer TECLA para continuar\n", vt);
-  std :: cin.ignore(); std :: cin.get();
-  clearScreen();
+    std::cout << "\nPressione Enter para continuar..."<<std::endl;
+    std::getline(std::cin, enter);
+    clearScreen();
 
+  //ENCONTRO COM OS TROLLS--------------------------------------------------------//
   Escrever("Você parte em direção à Cidade de Hoenn Land", vt);
-  Escrever ("\nInsira qualquer TECLA para continuar\n", vt);
-  std :: cin.ignore(); std :: cin.get();
-  clearScreen();
+    std::cout << "\nPressione Enter para continuar..."<<std::endl;
+    std::getline(std::cin, enter);
+    clearScreen();
 
   Escrever (".   ", 1);
   delay (1000);
@@ -401,38 +408,236 @@ int main(){
   delay (1000);
 
   Escrever ("\nNo meio do caminho você encontra três trolls em volta de um fogueira assando um pequeno carneiro.\n", vt);
-  Escrever ("\033[33;1mTrolls: \033[0m", vt); Escrever("Olha o que encontramos... uma saborosa iguaria!", vt);
+  Escrever ("\033[33;1mTrolls: \033[0m", vt); Escrever("Olha o que encontramos... Uma saborosa iguaria!", vt);
   Escrever (" Você servirá de petisco para nós.\n", vt);
   Escrever (name, vt); Escrever (": Não se eu matá-los antes.\n\n", vt);
   Escrever ("Prepare-se para batalhar contra o primeiro troll.", vt);
-  Escrever ("\nInsira qualquer TECLA para continuar\n", vt);
-  std :: cin.ignore(); std :: cin.get();
-  clearScreen();
-
+    std::cout << "\nPressione Enter para continuar..."<<std::endl;
+    std::getline(std::cin, enter);
+    clearScreen();
+  
   Escrever ("\033[33;1mTom: \033[0m", vt); Escrever ("Eu vou cortar você em picadinhos e cozinhar sua carne.\n\n", vt);
   batalha(vidaMax, vamp, 120, 10, 10, 18, 1000, 0.25, 0.0, "\033[33;1mTom\033[0m", vt);
 
   Escrever ("\033[34;1mBert: \033[0m", vt); Escrever ("NÃO! Você matou o meu irmão!\n", vt);
   Escrever ("Prepare-se para batalhar contra o segundo troll.", vt);
-  Escrever ("\nInsira qualquer TECLA para continuar\n", vt);
-  std :: cin.ignore(); std :: cin.get();
-  clearScreen();
+    std::cout << "\nPressione Enter para continuar..."<<std::endl;
+    std::getline(std::cin, enter);
+    clearScreen();
 
   Escrever ("\033[34;1mBert: \033[0m", vt); Escrever ("Eu vou sentar em cima de você e te amassar!\n\n", vt);
-  batalha(vidaMax, vamp, 120, 10, 10, 1000, 18, 0.25, 0.0, "\033[33;1mTom\033[0m", vt);
+  batalha(vidaMax, vamp, 120, 10, 10, 1000, 18, 0.25, 0.0, "\033[33;1mBert\033[0m", vt);
  
-  Escrever ("\033[34;1mWilliam: \033[0m", vt); Escrever ("Você vai pagar pelo que fez com meus irmãos!\n", vt);
+  Escrever ("\033[34;1mWilliam: \033[0m", vt); Escrever ("Você vai pagar pelo que fez com meus irmãos!\n\n", vt);
   Escrever ("Prepare-se para batalhar contra o terceiro troll.", vt);
-  Escrever ("\nInsira qualquer TECLA para continuar\n", vt);
-  std :: cin.ignore(); std :: cin.get();
+    std::cout << "\nPressione Enter para continuar..."<<std::endl;
+    std::getline(std::cin, enter);
+    clearScreen();
+
+  Escrever ("\033[34;1mWilliam: \033[0m", vt); Escrever("Eu vou fazer espetinho de você!!\n\n", vt);
+  batalha(vidaMax, vamp, 240, 10, 10, 30, 30, 0.25, 0.0, "\033[33;1mWilliam\033[0m", vt);
+    
+  Escrever (".   ", 1);
+  delay (500);
+  Escrever (".   ", 1);
+  delay (500);
+  Escrever (".   ", 1);
+  delay (500);
+
   clearScreen();
-
-  Escrever ("\033[34;1mWilliam: \033[0m", vt); Escrever ("Eu vou fazer espetinho de você!!\n\n", vt);
-  batalha(vidaMax, vamp, 240, 10, 10, 30, 30, 0.25, 0.0, "\033[33;1mTom\033[0m", vt);
-
-  Escrever ("\nInsira qualquer TECLA para continuar\n", vt);
-  std :: cin.ignore(); std :: cin.get();
+  std::cout << "\033[31;1mVocê derrotou os trolls!\033[0m\n";
+  delay(500);
   clearScreen();
+  std :: cout << "\033[32;1mVocê derrotou os trolls!\033[0m\n";
+  delay(500);
+  clearScreen();
+  std :: cout << "\033[33;1mVocê derrotou os trolls!\033[0m\n";
+  delay (500);
+  clearScreen();
+  std :: cout << "\033[34;1mVocê derrotou os trolls!\033[0m\n";
+  delay (500);
+    std::cout << "\nPressione Enter para continuar..."<<std::endl;
+    std::getline(std::cin, enter);
+    clearScreen();
 
-      return 0;
+  //HOENN LAND E o VELHO MELCHIOR-----------------------------------------------------
+  Escrever (".   ", 1);
+  delay (500);
+  Escrever (".   ", 1);
+  delay (500);
+  Escrever (".   ", 1);
+  delay (500);
+
+  Escrever("\nDepois de uma breve caminhada você finalmente chega à Hoenn Land, a cidade capital do país!", vt);
+  Escrever("\nAo pedir informações aos habitantes, você descobre que Melchior está em sua escola de Filosofia", vt);
+  Escrever("\nApós uma rápida procura pela cidade, você se depara com uma velha casa de madeira com uma placa escrito:", vt);
+  Escrever("\n\033[33;1m'Academia de Filosofia para jovens superdotados'\033[0m\n", vt);
+  Escrever("Ao passar pela porta, é surpreendido com um velho de dois metros de altura a sua frente!\n", vt);
+  std::cout<<"\033[32;1mMelchior: \033[0m"; Escrever("Quem é você e o que fazes aqui, garoto?\n", vt);
+  std::cout<<name<<": "; delay (500); Escrever ("  .   ", 1); delay (500); Escrever (".   ", 1); delay (500); Escrever (".   ", 1);
+  std::cout<<"\033[32;1m\nMelchior: \033[0m"; Escrever("Entendi! Neste caso, um velho amigo meu pode te ajudar.\n", vt);
+  Escrever("É um habilidoso oráculo que mora a sul daqui, ele com certeza vai saber te dizer a localização da princesa!\n", vt);
+  Escrever("Vou marcar a localização dele no seu mapa, um momento.", vt);
+    std::cout << "\nPressione Enter para abrir o mapa..."<<std::endl;
+    std::getline(std::cin, enter);
+    clearScreen();
+    mapa(2);
+    std::cout << "\nPressione Enter para continuar..."<<std::endl;
+    std::getline(std::cin, enter);
+    clearScreen();
+  std::cout<<"\033[32;1mMelchior: \033[0m"; Escrever("Ei jovem, espere! Não vá tão rápido!\n", vt);
+  Escrever("Tenho o pressentimento de que sua jornada para resgatar a princesa será perigosa, não é seguro ir desarmado. ", vt);
+  Escrever("Venha, me acompanhe, tenho uma coisa para te dar, vai ser muito útil em sua aventura\n\n.", vt);
+  Escrever("*Você segue o sábio \033[32;1mMelchior\033[0m até uma sala nos fundos da escola*\n\n", vt);
+  std::cout<<"\033[32;1mMelchior: \033[0m"; Escrever("Tome, essas armas foram forjadas a muito tempo num reino muito distante por uma antiga sociedade de anões místicos e empunhadas por grandes heróis do passado!", vt);
+  Escrever("\nInfelizmente você só pode escolher uma das três, mas não se preocupe, ela não te decepcionará e será fiel a ti durante toda a sua jornada.\n\n", vt);
+    std::cout << "\nPressione Enter para continuar..."<<std::endl;
+    std::getline(std::cin, enter);
+    clearScreen();
+  int arma;
+  Escrever("Escolha uma das armas:\n", vt);
+  std::cout<<"\033[1;33m[1] \033[0mA Espada Mágica de Sir. Byron.\n"
+           <<"\033[1;33m[2] \033[0mO Escudo Encantado de Lord Shelling.\n"
+           <<"\033[1;33m[3] \033[0mO Arco Místico da Rainha Hildegarda.\n";
+  while(1){
+    std::cin>>arma;
+    if(arma == 1){
+      p1.R_atk_f = p1.R_atk_f + Esp1.A_atk_f;
+      p1.R_atk_m = p1.R_atk_m + Esp1.A_atk_m;
+      p1.R_def_f = p1.R_def_f + Esp1.A_def_f;
+      p1.R_def_m = p1.R_def_m + Esp1.A_def_m;
+      break;
+    }else if(arma == 2){
+      p1.R_atk_f = p1.R_atk_f + Esc1.A_atk_f;
+      p1.R_atk_m = p1.R_atk_m + Esc1.A_atk_m;
+      p1.R_def_f = p1.R_def_f + Esc1.A_def_f;
+      p1.R_def_m = p1.R_def_m + Esc1.A_def_m;
+      break;
+    }else if(arma == 3){
+      p1.R_atk_f = p1.R_atk_f + Arc1.A_atk_f;
+      p1.R_atk_m = p1.R_atk_m + Arc1.A_atk_m;
+      p1.R_def_f = p1.R_def_f + Arc1.A_def_f;
+      p1.R_def_m = p1.R_def_m + Arc1.A_def_m;
+      break;
+    }else {
+      Escrever("Insira uma opção válida!\n", vt);
+      std::cin.clear();
+      std::cin.ignore(100, '\n');
+      continue;
+    }
   }
+  clearScreen();
+  Escrever (".   ", 1);
+  delay (500);
+  Escrever (".   ", 1);
+  delay (500);
+  Escrever (".   ", 1);
+  delay (500);
+
+  if(arma == 1){
+    clearScreen();
+    std::cout << "\033[31;1mVocê recebeu A Espada Mágica de Sir. Byron!\033[0m\n";
+    delay(500);
+    clearScreen();
+    std::cout << "\033[32;1mVocê recebeu A Espada Mágica de Sir. Byron!\033[0m\n";
+    delay(500);
+    clearScreen();
+    std::cout << "\033[33;1mVocê recebeu A Espada Mágica de Sir. Byron!\033[0m\n";
+    delay (500);
+    clearScreen();
+    std::cout << "\033[34;1mVocê recebeu A Espada Mágica de Sir. Byron!\033[0m\n";
+    delay (500);
+  }else if(arma == 2){
+    clearScreen();
+    std::cout << "\033[31;1mVocê recebeu O Escudo Encantado de Lord Shelling!\033[0m\n";
+    delay(500);
+    clearScreen();
+    std::cout << "\033[32;1mVocê recebeu O Escudo Encantado de Lord Shelling!\033[0m\n";
+    delay(500);
+    clearScreen();
+    std::cout << "\033[33;1mVocê recebeu O Escudo Encantado de Lord Shelling!\033[0m\n";
+    delay (500);
+    clearScreen();
+    std::cout << "\033[34;1mVocê recebeu O Escudo Encantado de Lord Shelling!\033[0m\n";
+    delay (500);
+  }else if(arma == 3){
+    clearScreen();
+    std::cout << "\033[31;1mVocê recebeu O Arco Místico da Rainha Hildegarda!\033[0m\n";
+    delay(500);
+    clearScreen();
+    std::cout << "\033[32;1mVocê recebeu O Arco Místico da Rainha Hildegarda!\033[0m\n";
+    delay(500);
+    clearScreen();
+    std::cout << "\033[33;1mVocê recebeu O Arco Místico da Rainha Hildegarda!\033[0m\n";
+    delay (500);
+    clearScreen();
+    std::cout << "\033[34;1mVocê recebeu O Arco Místico da Rainha Hildegarda!\033[0m\n";
+    delay (500);
+  }
+      std::cout << "\nPressione Enter para continuar..."<<std::endl;
+      std::cin.ignore(100, '\n');
+      std::getline(std::cin, enter);
+      clearScreen();
+  Escrever("Estes são os seus atributos atualizados:\n\n", vt);
+      if(raça == 1)
+        homem(name, p1.R_vida, p1.R_atk_f, p1.R_atk_m, p1.R_def_f, p1.R_def_m, p1.R_crtRate);
+      else if(raça == 2) 
+        vampiro(name, p1.R_vida, p1.R_atk_f, p1.R_atk_m, p1.R_def_f, p1.R_def_m, p1.R_crtRate);
+      else if(raça == 3)
+        elfo(name, p1.R_vida, p1.R_atk_f, p1.R_atk_m, p1.R_def_f, p1.R_def_m, p1.R_crtRate);
+      else if(raça == 4)
+        orc(name, p1.R_vida, p1.R_atk_f, p1.R_atk_m, p1.R_def_f, p1.R_def_m, p1.R_crtRate);
+      else if(raça == 5) 
+         anao(name, p1.R_vida, p1.R_atk_f, p1.R_atk_m, p1.R_def_f, p1.R_def_m, p1.R_crtRate);
+      else 
+        homem(name, p1.R_vida, p1.R_atk_f, p1.R_atk_m, p1.R_def_f, p1.R_def_m, p1.R_crtRate);
+      std::cout << "\n\nPressione Enter para continuar..."<<std::endl;
+      std::getline(std::cin, enter);
+      clearScreen();  
+  std::cout<<"\033[32;1mMelchior: \033[0m"; Escrever("Só mais uma coisa antes de ir, meu jovem. Você parece estar cansado.\n", vt);
+  Escrever("Se quiser, pode ficar e descansar um pouco para recuperar suas energias.\n", vt);
+  int descanso;
+  Escrever("\nO que deseja fazer?\n", vt);
+  std::cout<<"\033[1;33m[1] \033[0mFicar e descansar um pouco.\n"
+           <<"\033[1;33m[2] \033[0mIr em bora, pois estamos com pressa.\n";
+  while(1){
+    std::cin>>descanso;
+    if(descanso == 1){
+      Escrever("*Você descansou e suas energias foram recuperadas*\n\n", vt);
+      p1.R_vida = vidaMax;
+      std::cout<<"Vida atual: "<<p1.R_vida<<"/"<<vidaMax<<std::endl;
+    break;
+    }else if(descanso == 2){
+      std::cout<<"\033[32;1mMelchior: \033[0m"; Escrever("Muito bem, boa sorte aventureiro!\n.", vt);
+    break;
+    }else{
+      Escrever("Insira uma opção válida!\n", vt);
+      std::cin.clear();
+      std::cin.ignore(100, '\n');
+      continue;
+    }
+  }
+      std::cout << "\nPressione Enter para continuar..."<<std::endl;
+      std::cin.ignore(100, '\n');
+      std::getline(std::cin, enter);
+    clearScreen();
+    Escrever (".   ", 1);
+    delay (500);
+    Escrever (".   ", 1);
+    delay (500);
+    Escrever (".   ", 1);
+    delay (500);
+    clearScreen();
+
+//O ENIGMA DO ORÁCULO-------------------------------------------------------------
+
+  
+
+  
+
+
+
+
+
+  return 0;
+}
