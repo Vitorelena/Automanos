@@ -25,7 +25,7 @@ void Escrever(const std::string texto, int vt) {
 
 }
 
-void Delay(int a){
+void delay(int a){
     std::this_thread::sleep_for(std::chrono::milliseconds(a));
 }
 
